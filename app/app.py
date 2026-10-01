@@ -14,6 +14,11 @@ for d in [root_dir, app_dir]:
     if d not in sys.path:
         sys.path.insert(0, d)
 
+from dotenv import load_dotenv
+
+# Load local environment configuration (.env)
+load_dotenv()
+
 import yaml
 import folium
 import numpy as np

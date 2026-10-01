@@ -9,6 +9,10 @@ import os
 from typing import Dict, Any, Optional, Tuple
 import folium
 import requests
+from dotenv import load_dotenv
+
+# Automatically load .env if present
+load_dotenv()
 
 
 # Registry of supported basemap tile providers with attribution and URL templates
