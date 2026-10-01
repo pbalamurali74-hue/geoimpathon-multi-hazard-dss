@@ -615,24 +615,39 @@ with tab_critical:
     st.info("Step 4 Module: Top 10 critical road corridors and greedy max-coverage pre-positioning sites will be displayed here.")
 
 # =============================================================================
-# TAB 4: DASHBOARD
+# TAB 4: DASHBOARD & VALIDATION
 # =============================================================================
 with tab_dash:
     st.markdown(
         f"<p style='color: {COLOR_MUTED_TEXT}; font-size: 13px; margin-bottom: 12px;'>"
-        f"High-level operational metrics, Golden-Hour emergency access collapse, and model verification statistics."
+        f"Operational summary metrics, independent Sentinel-1 flood validation (Cyclone Michaung, Dec 2023), "
+        f"and geomorphic model verification statistics."
         f"</p>",
         unsafe_allow_html=True,
     )
 
+    import json
+    val_json_path = "outputs/validation_metrics.json"
+    if os.path.exists(val_json_path):
+        with open(val_json_path, "r", encoding="utf-8") as f:
+            val_metrics = json.load(f)
+    else:
+        from analysis.validation import run_full_validation
+        val_metrics = run_full_validation()
+
+    fv = val_metrics["flood_validation"]
+    sb = val_metrics["spatial_block_cv"]
+    ss = val_metrics["slope_sanity_check"]
+
+    # Top Metric Cards
     d1, d2, d3, d4 = st.columns(4)
     with d1:
         st.markdown(
             f"""
             <div class="metric-card">
-                <div class="metric-label">Golden-Hour Access</div>
-                <div class="metric-value">94.2% &rarr; 58.1%</div>
-                <div class="metric-subtext" style="color: {COLOR_DARK_ORANGE}; font-weight: 600;">-36.1% collapse in flood</div>
+                <div class="metric-label">Flood Model ROC AUC</div>
+                <div class="metric-value">{fv['auc']:.3f}</div>
+                <div class="metric-subtext">Balanced Sample (N=10,000, No Leakage)</div>
             </div>
             """,
             unsafe_allow_html=True,
@@ -641,9 +656,9 @@ with tab_dash:
         st.markdown(
             f"""
             <div class="metric-card">
-                <div class="metric-label">Isolated Settlements</div>
-                <div class="metric-value">7 Settlements</div>
-                <div class="metric-subtext">64,200 Built-Up Exposure units</div>
+                <div class="metric-label">Precision & Recall</div>
+                <div class="metric-value">{fv['metrics']['precision']:.1%} | {fv['metrics']['recall']:.1%}</div>
+                <div class="metric-subtext">Decision Threshold &tau; = {fv['threshold']:.3f}</div>
             </div>
             """,
             unsafe_allow_html=True,
@@ -652,9 +667,9 @@ with tab_dash:
         st.markdown(
             f"""
             <div class="metric-card">
-                <div class="metric-label">Flood Model ROC AUC</div>
-                <div class="metric-value">0.884</div>
-                <div class="metric-subtext">Balanced test set (No Leakage)</div>
+                <div class="metric-label">Spatial Block Mean AUC</div>
+                <div class="metric-value">{sb['mean_block_auc']:.3f} &plusmn; {sb['std_block_auc']:.3f}</div>
+                <div class="metric-subtext">16 Disjoint Geographic Blocks</div>
             </div>
             """,
             unsafe_allow_html=True,
@@ -663,9 +678,100 @@ with tab_dash:
         st.markdown(
             f"""
             <div class="metric-card">
-                <div class="metric-label">Route Confidence</div>
-                <div class="metric-value">91.5%</div>
-                <div class="metric-subtext">200 Monte Carlo runs (&plusmn;20% noise)</div>
+                <div class="metric-label">Slope Hazard Correlation</div>
+                <div class="metric-value">r = {ss['spearman_correlation']:.3f}</div>
+                <div class="metric-subtext">Monotonic Geomorphic Scaling (p &lt; 0.001)</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+    st.markdown("<hr style='border: none; border-top: 1px solid #D5DEE8; margin: 18px 0;'>", unsafe_allow_html=True)
+
+    # Sub-header
+    st.markdown(
+        f"<h4 style='color: {COLOR_DEEP_BLUE}; margin-bottom: 6px;'>"
+        f"Independent Flood Validation: Ground Truth vs. Susceptibility"
+        f"</h4>"
+        f"<p style='color: {COLOR_MUTED_TEXT}; font-size: 13px; margin-bottom: 14px;'>"
+        f"Validation Truth: Copernicus Sentinel-1 SAR change detection (Dec 2023 peak inundation). "
+        f"Permanent water (&gt;80% occurrence) strictly excluded. "
+        f"<strong>Strict No-Leakage Protocol:</strong> Sentinel-1 data was never used in hazard calculation."
+        f"</p>",
+        unsafe_allow_html=True,
+    )
+
+    col_roc, col_cm = st.columns(2, gap="medium")
+    with col_roc:
+        roc_p = "outputs/roc_curve.png"
+        if os.path.exists(roc_p):
+            st.image(roc_p, caption="Figure 1: Receiver Operating Characteristic (ROC) Curve against Sentinel-1 SAR truth.", use_container_width=True)
+        else:
+            st.warning("ROC curve image not found.")
+
+    with col_cm:
+        cm_p = "outputs/confusion_matrix.png"
+        if os.path.exists(cm_p):
+            st.image(cm_p, caption=f"Figure 2: Confusion Matrix at operational decision threshold τ = {fv['threshold']:.3f}.", use_container_width=True)
+        else:
+            st.warning("Confusion matrix image not found.")
+
+    # Spatial Block CV and Slope Sanity Check
+    st.markdown("<hr style='border: none; border-top: 1px solid #D5DEE8; margin: 18px 0;'>", unsafe_allow_html=True)
+    st.markdown(f"<h4 style='color: {COLOR_DEEP_BLUE}; margin-bottom: 6px;'>Spatial Generalizability & Geomorphic Verification</h4>", unsafe_allow_html=True)
+
+    col_sb, col_ss = st.columns(2, gap="medium")
+    with col_sb:
+        st.markdown(f"<strong style='color: {COLOR_INK}; font-size: 14px;'>Spatial Block Cross-Validation (4x4 Grid)</strong>", unsafe_allow_html=True)
+        st.caption("Guards against artificial accuracy inflation caused by Tobler's First Law (spatial autocorrelation):")
+        sb_p = "outputs/spatial_block_cv.png"
+        if os.path.exists(sb_p):
+            st.image(sb_p, caption="Figure 3: Block-level ROC AUC across 16 contiguous subregions.", use_container_width=True)
+
+        with st.expander("View 16-Block Cross-Validation Breakdown"):
+            sb_rows = []
+            for b in sb["blocks"]:
+                sb_rows.append({
+                    "Block": b["block_id"],
+                    "Flooded Pixels": b["flooded_count"],
+                    "Dry Pixels": b["dry_count"],
+                    "Block AUC": b["auc"] if b["auc"] is not None else "N/A",
+                })
+            st.dataframe(pd.DataFrame(sb_rows), use_container_width=True, hide_index=True)
+
+    with col_ss:
+        st.markdown(f"<strong style='color: {COLOR_INK}; font-size: 14px;'>Slope-Instability Geomorphic Sanity Check</strong>", unsafe_allow_html=True)
+        st.markdown(
+            f"<div class='warning-banner' style='margin-bottom: 8px;'>"
+            f"<strong>Sanity Check, NOT Empirical Validation:</strong> "
+            f"No official historical landslide inventory exists for South Chennai coastal plains. "
+            f"This test confirms physical scaling with slope gradient and extreme rainfall."
+            f"</div>",
+            unsafe_allow_html=True,
+        )
+        ss_p = "outputs/slope_sanity_check.png"
+        if os.path.exists(ss_p):
+            st.image(ss_p, caption="Figure 4: Mean slope-instability hazard across slope classes and rainfall tiers.", use_container_width=True)
+
+    # Educational Expander for Jury Defense
+    with st.expander("Defense Guide: Why AUC Alone Can Mislead in Spatial Disaster Models"):
+        st.markdown(
+            f"""
+            <div style="font-size: 13.5px; line-height: 1.6; color: {COLOR_INK};">
+                <ol style="margin-left: 20px;">
+                    <li><strong>Spatial Autocorrelation Inflation (Tobler's First Law):</strong>
+                        In spatial data, adjacent pixels are physically correlated. A standard random train/test split allows neighboring pixels into both sets, artificially boosting AUC by 0.05&ndash;0.10. Our <strong>Spatial Block Cross-Validation</strong> partitions the area into 16 contiguous geographic blocks, verifying true out-of-region transferability.
+                    </li>
+                    <li><strong>Class Imbalance Illusion:</strong>
+                        In large spatial scenes, 80&ndash;90% of the terrain often remains dry. A naive model predicting "dry everywhere" achieves 90% overall accuracy while failing 100% of flooded communities. We enforce <strong>balanced 1:1 sampling</strong> (5,000 flooded, 5,000 dry) to evaluate genuine discriminative ability.
+                    </li>
+                    <li><strong>Asymmetric Real-World Error Costs:</strong>
+                        AUC treats False Positives (dispatching rescue teams to dry land) and False Negatives (leaving submerged families unassisted) identically. In disaster command centers, a single ROC score cannot determine field deployment; the <strong>operational confusion matrix, precision, and recall</strong> at calibrated thresholds are vital.
+                    </li>
+                    <li><strong>Permanent Water Leakage Prevention:</strong>
+                        Including permanent water bodies (lakes, reservoirs, sea) produces millions of trivial True Positives. Masking out <strong>JRC 38-year water occurrence (&gt;80%)</strong> forces the model to prove its predictive capability exclusively on newly inundated terrestrial floodplains.
+                    </li>
+                </ol>
             </div>
             """,
             unsafe_allow_html=True,

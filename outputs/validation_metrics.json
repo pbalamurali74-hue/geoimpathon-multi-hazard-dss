@@ -1,0 +1,235 @@
+{
+  "flood_validation": {
+    "auc": 0.7066,
+    "threshold": 0.5106,
+    "optimal_youden_threshold": 0.5106,
+    "sample_size_per_class": 5000,
+    "total_flooded_pixels": 329337,
+    "total_dry_pixels": 115801,
+    "confusion_matrix": {
+      "tp": 3492,
+      "fp": 1972,
+      "fn": 1508,
+      "tn": 3028
+    },
+    "metrics": {
+      "accuracy": 0.652,
+      "precision": 0.6391,
+      "recall": 0.6984,
+      "specificity": 0.6056,
+      "f1_score": 0.6674
+    }
+  },
+  "spatial_block_cv": {
+    "num_blocks_evaluated": 16,
+    "mean_block_auc": 0.6864,
+    "std_block_auc": 0.0365,
+    "min_block_auc": 0.6086,
+    "max_block_auc": 0.7518,
+    "blocks": [
+      {
+        "block_row": 0,
+        "block_col": 0,
+        "block_id": "Block_0_0",
+        "auc": 0.6612,
+        "flooded_count": 22571,
+        "dry_count": 5815
+      },
+      {
+        "block_row": 0,
+        "block_col": 1,
+        "block_id": "Block_0_1",
+        "auc": 0.706,
+        "flooded_count": 21508,
+        "dry_count": 6878
+      },
+      {
+        "block_row": 0,
+        "block_col": 2,
+        "block_id": "Block_0_2",
+        "auc": 0.7402,
+        "flooded_count": 15603,
+        "dry_count": 12783
+      },
+      {
+        "block_row": 0,
+        "block_col": 3,
+        "block_id": "Block_0_3",
+        "auc": 0.7518,
+        "flooded_count": 22832,
+        "dry_count": 3154
+      },
+      {
+        "block_row": 1,
+        "block_col": 0,
+        "block_id": "Block_1_0",
+        "auc": 0.6976,
+        "flooded_count": 18996,
+        "dry_count": 9390
+      },
+      {
+        "block_row": 1,
+        "block_col": 1,
+        "block_id": "Block_1_1",
+        "auc": 0.6893,
+        "flooded_count": 17831,
+        "dry_count": 10555
+      },
+      {
+        "block_row": 1,
+        "block_col": 2,
+        "block_id": "Block_1_2",
+        "auc": 0.6432,
+        "flooded_count": 21297,
+        "dry_count": 5777
+      },
+      {
+        "block_row": 1,
+        "block_col": 3,
+        "block_id": "Block_1_3",
+        "auc": 0.7155,
+        "flooded_count": 19301,
+        "dry_count": 3446
+      },
+      {
+        "block_row": 2,
+        "block_col": 0,
+        "block_id": "Block_2_0",
+        "auc": 0.725,
+        "flooded_count": 18512,
+        "dry_count": 9874
+      },
+      {
+        "block_row": 2,
+        "block_col": 1,
+        "block_id": "Block_2_1",
+        "auc": 0.6959,
+        "flooded_count": 16476,
+        "dry_count": 11910
+      },
+      {
+        "block_row": 2,
+        "block_col": 2,
+        "block_id": "Block_2_2",
+        "auc": 0.6587,
+        "flooded_count": 21342,
+        "dry_count": 5674
+      },
+      {
+        "block_row": 2,
+        "block_col": 3,
+        "block_id": "Block_2_3",
+        "auc": 0.6537,
+        "flooded_count": 23400,
+        "dry_count": 5484
+      },
+      {
+        "block_row": 3,
+        "block_col": 0,
+        "block_id": "Block_3_0",
+        "auc": 0.6904,
+        "flooded_count": 21800,
+        "dry_count": 6757
+      },
+      {
+        "block_row": 3,
+        "block_col": 1,
+        "block_id": "Block_3_1",
+        "auc": 0.687,
+        "flooded_count": 21483,
+        "dry_count": 7074
+      },
+      {
+        "block_row": 3,
+        "block_col": 2,
+        "block_id": "Block_3_2",
+        "auc": 0.6086,
+        "flooded_count": 23080,
+        "dry_count": 5477
+      },
+      {
+        "block_row": 3,
+        "block_col": 3,
+        "block_id": "Block_3_3",
+        "auc": 0.6582,
+        "flooded_count": 23305,
+        "dry_count": 5753
+      }
+    ]
+  },
+  "slope_sanity_check": {
+    "spearman_correlation": 0.86,
+    "spearman_pvalue": 0.0,
+    "is_monotonically_increasing": true,
+    "slope_classes": [
+      {
+        "class": "Flat Plain (<0.25\u00b0)",
+        "slope_range_deg": [
+          0.0,
+          0.25
+        ],
+        "mean_hazard": 0.211,
+        "std_hazard": 0.0691,
+        "pixel_count": 192820
+      },
+      {
+        "class": "Gentle Slope (0.25\u00b0-0.50\u00b0)",
+        "slope_range_deg": [
+          0.25,
+          0.5
+        ],
+        "mean_hazard": 0.3224,
+        "std_hazard": 0.0611,
+        "pixel_count": 192091
+      },
+      {
+        "class": "Moderate Slope (0.50\u00b0-0.75\u00b0)",
+        "slope_range_deg": [
+          0.5,
+          0.75
+        ],
+        "mean_hazard": 0.4743,
+        "std_hazard": 0.0624,
+        "pixel_count": 59216
+      },
+      {
+        "class": "Steeper / Bunds (>0.75\u00b0)",
+        "slope_range_deg": [
+          0.75,
+          5.0
+        ],
+        "mean_hazard": 0.5994,
+        "std_hazard": 0.0468,
+        "pixel_count": 12728
+      }
+    ],
+    "rain_labels": [
+      "Low Rain (<267.3 mm)",
+      "Moderate Rain (267.3-275.7 mm)",
+      "High Rain (>275.7 mm)"
+    ],
+    "cross_matrix": [
+      [
+        0.2037,
+        0.2256,
+        0.2055
+      ],
+      [
+        0.3136,
+        0.3315,
+        0.3225
+      ],
+      [
+        0.4621,
+        0.4835,
+        0.4887
+      ],
+      [
+        0.5672,
+        0.5937,
+        0.6153
+      ]
+    ],
+    "disclaimer": "Sanity Check, NOT Validation: No official historical landslide inventory exists for South Chennai plains. This confirms geomorphic plausibility only."
+  }
+}
