@@ -843,7 +843,7 @@ with tab_critical:
                 data=f,
                 file_name="top_10_critical_roads.csv",
                 mime="text/csv",
-                use_container_width=True,
+                width="stretch",
             )
 
         with open(prepos_csv_p, "rb") as f:
@@ -853,7 +853,7 @@ with tab_critical:
                 file_name="relief_prepositioning_plan.csv",
                 mime="text/csv",
                 type="primary",
-                use_container_width=True,
+                width="stretch",
             )
 
         iso_csv_p = "outputs/settlement_isolation.csv"
@@ -864,7 +864,7 @@ with tab_critical:
                     data=f,
                     file_name="settlement_isolation_status.csv",
                     mime="text/csv",
-                    use_container_width=True,
+                    width="stretch",
                 )
 
     # Detailed Operational Tables Below Map
@@ -874,7 +874,7 @@ with tab_critical:
 
     crit_display_df = crit_df[["rank", "name", "highway", "risk", "flow_exposure", "isolated_exposure", "explanation"]].copy()
     crit_display_df.columns = ["Rank", "Corridor Name", "Class", "Risk", "Flow Exposure", "Isolated Exposure", "Operational Impact Assessment"]
-    st.dataframe(crit_display_df, use_container_width=True, hide_index=True)
+    st.dataframe(crit_display_df, hide_index=True)
 
     st.markdown("<hr style='border: none; border-top: 1px solid #D5DEE8; margin: 20px 0;'>", unsafe_allow_html=True)
     st.markdown(f"<h4 style='color: {COLOR_DEEP_BLUE}; margin-bottom: 6px;'>Strategic Relief Asset Pre-Positioning Action Plan (Greedy Max-Coverage)</h4>", unsafe_allow_html=True)
@@ -882,7 +882,7 @@ with tab_critical:
 
     prepos_display_df = prepos_df[["rank", "name", "asset_package", "staged_assets", "covered_exposure", "covered_settlement_count", "operational_mandate"]].copy()
     prepos_display_df.columns = ["Hub", "Safe Facility Name", "Asset Package", "Staged Equipment Mix", "Covered Exposure", "Settlements", "Operational Mandate"]
-    st.dataframe(prepos_display_df, use_container_width=True, hide_index=True)
+    st.dataframe(prepos_display_df, hide_index=True)
 
 # =============================================================================
 # TAB 4: DASHBOARD, ACCESS & ROBUSTNESS
@@ -984,11 +984,11 @@ with tab_dash:
     with col_acc:
         acc_p = "outputs/golden_hour_access.png"
         if os.path.exists(acc_p):
-            st.image(acc_p, caption="Figure 1: Hospital Access Collapse (Pre-Disaster Baseline vs. Cyclone Michaung Inundation).", use_container_width=True)
+            st.image(acc_p, caption="Figure 1: Hospital Access Collapse (Pre-Disaster Baseline vs. Cyclone Michaung Inundation).", width="stretch")
     with col_mc:
         mc_p = "outputs/monte_carlo_robustness.png"
         if os.path.exists(mc_p):
-            st.image(mc_p, caption="Figure 2: Monte Carlo Stochastic Robustness across 200 Trials with ±20% Weight Noise.", use_container_width=True)
+            st.image(mc_p, caption="Figure 2: Monte Carlo Stochastic Robustness across 200 Trials with ±20% Weight Noise.", width="stretch")
 
     st.markdown("<hr style='border: none; border-top: 1px solid #D5DEE8; margin: 20px 0;'>", unsafe_allow_html=True)
 
@@ -1053,12 +1053,12 @@ with tab_dash:
     with col_roc:
         roc_p = "outputs/roc_curve.png"
         if os.path.exists(roc_p):
-            st.image(roc_p, caption="Figure 3: Receiver Operating Characteristic (ROC) Curve against Sentinel-1 SAR truth.", use_container_width=True)
+            st.image(roc_p, caption="Figure 3: Receiver Operating Characteristic (ROC) Curve against Sentinel-1 SAR truth.", width="stretch")
 
     with col_cm:
         cm_p = "outputs/confusion_matrix.png"
         if os.path.exists(cm_p):
-            st.image(cm_p, caption=f"Figure 4: Confusion Matrix at operational decision threshold τ = {fv['threshold']:.3f}.", use_container_width=True)
+            st.image(cm_p, caption=f"Figure 4: Confusion Matrix at operational decision threshold τ = {fv['threshold']:.3f}.", width="stretch")
 
     col_sb, col_ss = st.columns(2, gap="medium")
     with col_sb:
@@ -1066,7 +1066,7 @@ with tab_dash:
         st.caption("Guards against artificial accuracy inflation caused by Tobler's First Law (spatial autocorrelation):")
         sb_p = "outputs/spatial_block_cv.png"
         if os.path.exists(sb_p):
-            st.image(sb_p, caption="Figure 5: Block-level ROC AUC across 16 contiguous subregions.", use_container_width=True)
+            st.image(sb_p, caption="Figure 5: Block-level ROC AUC across 16 contiguous subregions.", width="stretch")
 
         with st.expander("View 16-Block Cross-Validation Breakdown"):
             sb_rows = []
@@ -1077,7 +1077,7 @@ with tab_dash:
                     "Dry Pixels": b["dry_count"],
                     "Block AUC": b["auc"] if b["auc"] is not None else "N/A",
                 })
-            st.dataframe(pd.DataFrame(sb_rows), use_container_width=True, hide_index=True)
+            st.dataframe(pd.DataFrame(sb_rows), hide_index=True)
 
     with col_ss:
         st.markdown(f"<strong style='color: {COLOR_INK}; font-size: 14px;'>Slope-Instability Geomorphic Sanity Check</strong>", unsafe_allow_html=True)
@@ -1091,7 +1091,7 @@ with tab_dash:
         )
         ss_p = "outputs/slope_sanity_check.png"
         if os.path.exists(ss_p):
-            st.image(ss_p, caption="Figure 6: Mean slope-instability hazard across slope classes and rainfall tiers.", use_container_width=True)
+            st.image(ss_p, caption="Figure 6: Mean slope-instability hazard across slope classes and rainfall tiers.", width="stretch")
 
     # PART C: JURY DEFENSE GUIDES
     st.markdown("<hr style='border: none; border-top: 1px solid #D5DEE8; margin: 20px 0;'>", unsafe_allow_html=True)
