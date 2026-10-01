@@ -1,0 +1,20 @@
+{
+  "total_exposure_units": 587017.0,
+  "golden_hour_60min": {
+    "normal_access_pct": 99.3,
+    "flood_access_pct": 76.7,
+    "access_collapse_pct": 22.6,
+    "normal_exposure_reached": 582656.0,
+    "flood_exposure_reached": 450150.0
+  },
+  "acute_emergency_30min": {
+    "normal_access_pct": 99.3,
+    "flood_access_pct": 69.7,
+    "access_collapse_pct": 29.6,
+    "normal_exposure_reached": 582656.0,
+    "flood_exposure_reached": 409055.0
+  },
+  "isolated_exposure_units": 136867.0,
+  "delayed_exposure_units": 157452.0,
+  "plot_path": "outputs/golden_hour_access.png"
+}

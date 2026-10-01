@@ -1,0 +1,41 @@
+{
+  "n_runs": 200,
+  "noise_level_pct": 20,
+  "overall_route_confidence_pct": 100.0,
+  "identical_route_pct": 100.0,
+  "mean_critical_road_persistence_pct": 92.5,
+  "route_stability_by_origin": {
+    "Tambaram": {
+      "identical_pct": 100.0,
+      "mean_jaccard": 1.0
+    },
+    "Chromepet": {
+      "identical_pct": 100.0,
+      "mean_jaccard": 1.0
+    },
+    "Pallavaram": {
+      "identical_pct": 100.0,
+      "mean_jaccard": 1.0
+    },
+    "Selaiyur": {
+      "identical_pct": 100.0,
+      "mean_jaccard": 1.0
+    },
+    "Madipakkam": {
+      "identical_pct": 100.0,
+      "mean_jaccard": 1.0
+    }
+  },
+  "critical_road_persistence": {
+    "Mount - Medavakkam Road": 91.5,
+    "Ponniamman Koil Street": 92.5,
+    "Puzhuthivakkam Road": 93.5
+  },
+  "travel_time_confidence_interval_95": {
+    "origin": "Tambaram",
+    "mean_min": 0.2,
+    "ci_lower_min": 0.2,
+    "ci_upper_min": 0.2
+  },
+  "plot_path": "outputs/monte_carlo_robustness.png"
+}
