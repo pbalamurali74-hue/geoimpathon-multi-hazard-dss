@@ -93,3 +93,10 @@ monte_carlo:
   runs: 200
   weight_noise_pct: 0.20               # +/- 20% multiplicative perturbation
   confidence_level: 0.95
+
+# Maps API & Basemap Services Configuration
+maps:
+  default_basemap: "CartoDB Positron (Clean Light)"
+  google_maps_api_key: ""              # Optional: Can be overridden by GOOGLE_MAPS_API_KEY env var
+  mapbox_api_key: ""                   # Optional: Can be overridden by MAPBOX_API_KEY env var
+

@@ -14,6 +14,11 @@ import geopandas as gpd
 import streamlit as st
 import osmnx as ox
 from streamlit_folium import st_folium
+from analysis.maps_service import (
+    BASEMAP_REGISTRY,
+    create_interactive_map,
+    get_maps_api_key,
+)
 
 # Ensure project root and app dir are in sys.path
 root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
@@ -188,6 +193,35 @@ with st.sidebar:
     show_settlements = st.checkbox("Settlement Centers", value=True)
     show_critical_roads = st.checkbox("Top Critical Road Corridors", value=True)
 
+    st.markdown("---")
+    st.markdown(f"<h4 style='color: {COLOR_INK}; margin-bottom: 4px;'>🗺️ Maps API & Basemap</h4>", unsafe_allow_html=True)
+    st.caption("Select primary cartographic style or customize satellite layers:")
+
+    basemap_options = list(BASEMAP_REGISTRY.keys())
+    default_bm = cfg.get("maps", {}).get("default_basemap", "CartoDB Positron (Clean Light)")
+    bm_index = basemap_options.index(default_bm) if default_bm in basemap_options else 0
+
+    selected_basemap = st.selectbox(
+        "Active Basemap Style",
+        basemap_options,
+        index=bm_index,
+        help="Select base map style. You can also switch styles live via the layer selector icon (top right) directly on any map.",
+    )
+
+    with st.expander("Maps API Key Configuration", expanded=False):
+        env_maps_key = get_maps_api_key()
+        user_maps_key = st.text_input(
+            "Google Maps / Maps API Key",
+            value=env_maps_key,
+            type="password",
+            help="Optional: Enter a Google Maps Platform or Mapbox API key. If left blank, reliable public map tile endpoints are used automatically.",
+        )
+        if user_maps_key:
+            st.success("Maps API Key Active")
+        else:
+            st.info("Direct Basemap Service Active (No API Key Required)")
+
+
 # -----------------------------------------------------------------------------
 # Main Application Tabs (All 5 Tabs)
 # -----------------------------------------------------------------------------
@@ -213,11 +247,12 @@ with tab_risk:
     col_map, col_info = st.columns([7, 3], gap="medium")
 
     with col_map:
-        m = folium.Map(
+        m = create_interactive_map(
             location=[center_lat, center_lon],
             zoom_start=12,
-            tiles="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
-            attr="&copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors &copy; <a href='https://carto.com/attributions'>CARTO</a>",
+            active_basemap=selected_basemap,
+            api_key=user_maps_key,
+            include_all_basemaps=True,
             control_scale=True,
         )
 
@@ -322,11 +357,12 @@ with tab_risk:
                     tooltip=f"Shelter: {name}",
                 ).add_to(m)
 
+        folium.LayerControl(position="topright", collapsed=True).add_to(m)
         st_folium(m, width="100%", height=560, returned_objects=[])
 
         st.caption(
             "Data sources: Copernicus DEM GLO-30 (ESA), Dynamic World V1 (Google/WRI), OpenStreetMap contributors, JRC Global Surface Water. "
-            "Projection: WGS84 / EPSG:4326. Basemap: CartoDB Positron."
+            "Projection: WGS84 / EPSG:4326. Basemap: Multi-provider (Google Maps / CARTO / OSM / Esri)."
         )
 
     with col_info:
@@ -465,11 +501,12 @@ with tab_route:
         else:
             map_center = [orig_coord[1], orig_coord[0]]
 
-        m_route = folium.Map(
+        m_route = create_interactive_map(
             location=map_center,
             zoom_start=13,
-            tiles="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
-            attr="&copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors &copy; <a href='https://carto.com/attributions'>CARTO</a>",
+            active_basemap=selected_basemap,
+            api_key=user_maps_key,
+            include_all_basemaps=True,
             control_scale=True,
         )
 
@@ -540,6 +577,7 @@ with tab_route:
                 tooltip=f"Destination: {route_res['destination_name']}",
             ).add_to(m_route)
 
+        folium.LayerControl(position="topright", collapsed=True).add_to(m_route)
         st_folium(m_route, width="100%", height=560, returned_objects=[])
 
         st.caption(
@@ -688,11 +726,12 @@ with tab_critical:
     with col_cmap:
         # Folium map centered on bbox
         map_center_crit = [float((lat_min + lat_max) / 2.0), float((lon_min + lon_max) / 2.0)]
-        m_crit = folium.Map(
+        m_crit = create_interactive_map(
             location=map_center_crit,
             zoom_start=12,
-            tiles="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
-            attr="&copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors &copy; <a href='https://carto.com/attributions'>CARTO</a>",
+            active_basemap=selected_basemap,
+            api_key=user_maps_key,
+            include_all_basemaps=True,
             control_scale=True,
         )
 
@@ -818,6 +857,7 @@ with tab_critical:
                 ),
             ).add_to(m_crit)
 
+        folium.LayerControl(position="topright", collapsed=True).add_to(m_crit)
         st_folium(m_crit, width="100%", height=520)
 
     with col_cpanel:
