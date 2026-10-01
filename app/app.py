@@ -608,11 +608,280 @@ with tab_route:
 with tab_critical:
     st.markdown(
         f"<p style='color: {COLOR_MUTED_TEXT}; font-size: 13px; margin-bottom: 12px;'>"
-        f"This screen discovers single points of failure in the road network and identifies isolated or severely delayed settlements."
+        f"Discover single points of failure in the road network, identify isolated communities, "
+        f"and review the greedy maximum-coverage relief asset pre-positioning plan."
         f"</p>",
         unsafe_allow_html=True,
     )
-    st.info("Step 4 Module: Top 10 critical road corridors and greedy max-coverage pre-positioning sites will be displayed here.")
+
+    crit_csv_p = "outputs/top_critical_roads.csv"
+    crit_geojson_p = "outputs/top_critical_roads.geojson"
+    iso_geojson_p = "outputs/settlement_isolation.geojson"
+    prepos_csv_p = "outputs/preposition_sites.csv"
+    prepos_geojson_p = "outputs/preposition_sites.geojson"
+
+    if not (os.path.exists(crit_csv_p) and os.path.exists(iso_geojson_p) and os.path.exists(prepos_csv_p)):
+        from routing.preposition import run_full_criticality_and_preposition
+        run_full_criticality_and_preposition()
+
+    crit_df = pd.read_csv(crit_csv_p)
+    crit_gdf = gpd.read_file(crit_geojson_p)
+    iso_gdf = gpd.read_file(iso_geojson_p)
+    prepos_df = pd.read_csv(prepos_csv_p)
+    prepos_gdf = gpd.read_file(prepos_geojson_p)
+
+    num_isolated = int((iso_gdf["status"] == "Isolated (Hospital Cut Off)").sum())
+    num_delayed = int((iso_gdf["status"] == "Severely Delayed (≥2x Normal Time)").sum())
+    iso_exposure = float(iso_gdf[iso_gdf["status"] == "Isolated (Hospital Cut Off)"]["exposure_units"].sum())
+
+    # Top Metric Cards
+    c1, c2, c3, c4 = st.columns(4)
+    with c1:
+        st.markdown(
+            f"""
+            <div class="metric-card">
+                <div class="metric-label">Single Points of Failure</div>
+                <div class="metric-value">10 Critical Corridors</div>
+                <div class="metric-subtext">Verified via G \\ {{e*}} Removal Impact</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+    with c2:
+        st.markdown(
+            f"""
+            <div class="metric-card">
+                <div class="metric-label">Isolated Settlements</div>
+                <div class="metric-value">{num_isolated} Communities</div>
+                <div class="metric-subtext" style="color: {COLOR_DARK_ORANGE}; font-weight: 600;">{iso_exposure:,.0f} Exposure Units Cut Off</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+    with c3:
+        st.markdown(
+            f"""
+            <div class="metric-card">
+                <div class="metric-label">Severely Delayed</div>
+                <div class="metric-value">{num_delayed} Communities</div>
+                <div class="metric-subtext">&ge; 2.0x Normal Hospital Travel Time</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+    with c4:
+        st.markdown(
+            f"""
+            <div class="metric-card">
+                <div class="metric-label">Relief Pre-positioning</div>
+                <div class="metric-value">5 Staging Hubs</div>
+                <div class="metric-subtext">Greedy Max-Coverage on Safe Ground</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+    st.markdown("<hr style='border: none; border-top: 1px solid #D5DEE8; margin: 16px 0;'>", unsafe_allow_html=True)
+
+    col_cmap, col_cpanel = st.columns([7, 3], gap="medium")
+
+    with col_cmap:
+        # Folium map centered on bbox
+        map_center_crit = [float((lat_min + lat_max) / 2.0), float((lon_min + lon_max) / 2.0)]
+        m_crit = folium.Map(
+            location=map_center_crit,
+            zoom_start=12,
+            tiles="CartoDB positron",
+            control_scale=True,
+        )
+
+        # 1. Plot Isolated Settlements
+        isolated_sub = iso_gdf[iso_gdf["status"] == "Isolated (Hospital Cut Off)"]
+        for _, s_row in isolated_sub.iterrows():
+            pt = s_row.geometry
+            folium.CircleMarker(
+                location=[pt.y, pt.x],
+                radius=6.5,
+                color=COLOR_DARK_ORANGE,
+                weight=2.0,
+                fill=True,
+                fill_color=COLOR_ORANGE,
+                fill_opacity=0.9,
+                tooltip=f"ISOLATED: {s_row['name']}",
+                popup=folium.Popup(
+                    f"<div style='font-family: sans-serif; font-size: 12px; min-width: 180px;'>"
+                    f"<strong style='color: {COLOR_DARK_ORANGE};'>ISOLATED SETTLEMENT</strong><br>"
+                    f"<strong>Community:</strong> {s_row['name']}<br>"
+                    f"<strong>Exposure:</strong> {s_row['exposure_units']:,.0f} units<br>"
+                    f"<strong>Hospital Access:</strong> Cut Off in Flood Graph"
+                    f"</div>",
+                    max_width=240,
+                ),
+            ).add_to(m_crit)
+
+        # 2. Plot Severely Delayed Settlements
+        delayed_sub = iso_gdf[iso_gdf["status"] == "Severely Delayed (≥2x Normal Time)"]
+        for _, d_row in delayed_sub.iterrows():
+            pt = d_row.geometry
+            folium.CircleMarker(
+                location=[pt.y, pt.x],
+                radius=5.0,
+                color=COLOR_MUTED_TEXT,
+                weight=1.5,
+                fill=True,
+                fill_color="#F4A259",
+                fill_opacity=0.75,
+                tooltip=f"DELAYED: {d_row['name']} (+{d_row['delay_ratio']:.1f}x)",
+                popup=folium.Popup(
+                    f"<div style='font-family: sans-serif; font-size: 12px; min-width: 180px;'>"
+                    f"<strong style='color: {COLOR_ORANGE};'>SEVERELY DELAYED</strong><br>"
+                    f"<strong>Community:</strong> {d_row['name']}<br>"
+                    f"<strong>Normal Travel:</strong> {d_row['time_normal_min']:.1f} min<br>"
+                    f"<strong>Flood Travel:</strong> {d_row['time_flood_min']:.1f} min ({d_row['delay_ratio']:.1f}x delay)"
+                    f"</div>",
+                    max_width=240,
+                ),
+            ).add_to(m_crit)
+
+        # 3. Plot Top 10 Critical Roads
+        for _, r_row in crit_gdf.iterrows():
+            geom = r_row.geometry
+            coords = [[lat, lon] for lon, lat in geom.coords]
+            rank_num = int(r_row["rank"])
+
+            # Casing
+            folium.PolyLine(
+                locations=coords,
+                color=COLOR_WHITE,
+                weight=8,
+                opacity=1.0,
+            ).add_to(m_crit)
+
+            # High-impact critical stroke
+            folium.PolyLine(
+                locations=coords,
+                color=COLOR_DARK_ORANGE,
+                weight=5,
+                opacity=0.95,
+                tooltip=f"Critical Rank #{rank_num}: {r_row['name']}",
+                popup=folium.Popup(
+                    f"<div style='font-family: sans-serif; font-size: 12px; min-width: 220px;'>"
+                    f"<strong style='color: {COLOR_DARK_ORANGE};'>SINGLE POINT OF FAILURE #{rank_num}</strong><br>"
+                    f"<strong>Road:</strong> {r_row['name']} ({r_row['highway']})<br>"
+                    f"<strong>Risk Score:</strong> {r_row['risk']:.3f}<br>"
+                    f"<strong>Traversing Exposure:</strong> {r_row['flow_exposure']:,.0f} units<br>"
+                    f"<strong>Impact:</strong> {r_row['explanation']}"
+                    f"</div>",
+                    max_width=280,
+                ),
+            ).add_to(m_crit)
+
+            # Numbered Badge Marker at centroid
+            badge_html = f"""
+            <div style="background-color: {COLOR_DARK_ORANGE}; color: {COLOR_WHITE}; border: 2px solid {COLOR_WHITE};
+                        border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center;
+                        justify-content: center; font-size: 11px; font-weight: bold; box-shadow: 0 1px 4px rgba(0,0,0,0.4);">
+                {rank_num}
+            </div>
+            """
+            folium.Marker(
+                location=[r_row["lat"], r_row["lon"]],
+                icon=folium.DivIcon(html=badge_html, icon_size=(22, 22), icon_anchor=(11, 11)),
+                tooltip=f"Rank #{rank_num}: {r_row['name']}",
+            ).add_to(m_crit)
+
+        # 4. Plot 5 Pre-positioning Hubs
+        for _, p_row in prepos_gdf.iterrows():
+            p_rank = int(p_row["rank"])
+            site_html = f"""
+            <div style="background-color: {COLOR_DEEP_BLUE}; color: {COLOR_WHITE}; border: 2px solid {COLOR_WHITE};
+                        border-radius: 4px; padding: 2px 5px; font-size: 10px; font-weight: bold;
+                        box-shadow: 0 2px 5px rgba(0,0,0,0.4); text-align: center; white-space: nowrap;">
+                HUB #{p_rank}
+            </div>
+            """
+            folium.Marker(
+                location=[p_row["lat"], p_row["lon"]],
+                icon=folium.DivIcon(html=site_html, icon_size=(48, 20), icon_anchor=(24, 10)),
+                tooltip=f"Pre-positioning Hub #{p_rank}: {p_row['name']}",
+                popup=folium.Popup(
+                    f"<div style='font-family: sans-serif; font-size: 12px; min-width: 240px;'>"
+                    f"<strong style='color: {COLOR_DEEP_BLUE};'>STRATEGIC RELIEF HUB #{p_rank}</strong><br>"
+                    f"<strong>Location:</strong> {p_row['name']}<br>"
+                    f"<strong>Covered Exposure:</strong> {p_row['covered_exposure']:,.0f} units ({p_row['covered_settlement_count']} settlements)<br>"
+                    f"<strong>Package:</strong> {p_row['asset_package']}<br>"
+                    f"<strong>Staged Assets:</strong> {p_row['staged_assets']}<br>"
+                    f"<strong>Mandate:</strong> {p_row['operational_mandate']}"
+                    f"</div>",
+                    max_width=300,
+                ),
+            ).add_to(m_crit)
+
+        st_folium(m_crit, width="100%", height=520)
+
+    with col_cpanel:
+        st.markdown(
+            f"""
+            <div class="metric-card">
+                <div class="metric-label">Legend & Map Symbols</div>
+                <div style="margin-top: 8px; font-size: 12.5px; line-height: 1.8;">
+                    <div><span style="display:inline-block; width:12px; height:12px; background:{COLOR_DARK_ORANGE}; border-radius:50%; margin-right:6px;"></span> <strong>Isolated Settlements ({num_isolated})</strong></div>
+                    <div><span style="display:inline-block; width:12px; height:12px; background:#F4A259; border-radius:50%; margin-right:6px;"></span> <strong>Severely Delayed ({num_delayed})</strong></div>
+                    <div><span style="display:inline-block; width:20px; height:4px; background:{COLOR_DARK_ORANGE}; margin-right:6px; vertical-align:middle;"></span> <strong>Critical Roads (Top 10)</strong></div>
+                    <div><span style="display:inline-block; width:12px; height:12px; background:{COLOR_DEEP_BLUE}; border-radius:2px; margin-right:6px;"></span> <strong>Relief Staging Hubs (5)</strong></div>
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+        st.markdown(f"<h5 style='color: {COLOR_INK}; margin-top: 14px;'>Download Operational Action Plans</h5>", unsafe_allow_html=True)
+        with open(crit_csv_p, "rb") as f:
+            st.download_button(
+                label="Download Critical Roads (CSV)",
+                data=f,
+                file_name="top_10_critical_roads.csv",
+                mime="text/csv",
+                use_container_width=True,
+            )
+
+        with open(prepos_csv_p, "rb") as f:
+            st.download_button(
+                label="Download Pre-positioning Plan (CSV)",
+                data=f,
+                file_name="relief_prepositioning_plan.csv",
+                mime="text/csv",
+                type="primary",
+                use_container_width=True,
+            )
+
+        iso_csv_p = "outputs/settlement_isolation.csv"
+        if os.path.exists(iso_csv_p):
+            with open(iso_csv_p, "rb") as f:
+                st.download_button(
+                    label="Download Settlement Isolation List (CSV)",
+                    data=f,
+                    file_name="settlement_isolation_status.csv",
+                    mime="text/csv",
+                    use_container_width=True,
+                )
+
+    # Detailed Operational Tables Below Map
+    st.markdown("<hr style='border: none; border-top: 1px solid #D5DEE8; margin: 20px 0;'>", unsafe_allow_html=True)
+    st.markdown(f"<h4 style='color: {COLOR_DEEP_BLUE}; margin-bottom: 6px;'>Top 10 Critical Transportation Corridors (Single Points of Failure)</h4>", unsafe_allow_html=True)
+    st.caption("Identified by simulating edge removal (G \\ {e*}) across all hospital emergency routes:")
+
+    crit_display_df = crit_df[["rank", "name", "highway", "risk", "flow_exposure", "isolated_exposure", "explanation"]].copy()
+    crit_display_df.columns = ["Rank", "Corridor Name", "Class", "Risk", "Flow Exposure", "Isolated Exposure", "Operational Impact Assessment"]
+    st.dataframe(crit_display_df, use_container_width=True, hide_index=True)
+
+    st.markdown("<hr style='border: none; border-top: 1px solid #D5DEE8; margin: 20px 0;'>", unsafe_allow_html=True)
+    st.markdown(f"<h4 style='color: {COLOR_DEEP_BLUE}; margin-bottom: 6px;'>Strategic Relief Asset Pre-Positioning Action Plan (Greedy Max-Coverage)</h4>", unsafe_allow_html=True)
+    st.caption("Safe facilities selected to maximize coverage of isolated & delayed exposure within 3.5 km operational reach:")
+
+    prepos_display_df = prepos_df[["rank", "name", "asset_package", "staged_assets", "covered_exposure", "covered_settlement_count", "operational_mandate"]].copy()
+    prepos_display_df.columns = ["Hub", "Safe Facility Name", "Asset Package", "Staged Equipment Mix", "Covered Exposure", "Settlements", "Operational Mandate"]
+    st.dataframe(prepos_display_df, use_container_width=True, hide_index=True)
 
 # =============================================================================
 # TAB 4: DASHBOARD & VALIDATION

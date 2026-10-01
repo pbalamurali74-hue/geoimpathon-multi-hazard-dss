@@ -1,0 +1,142 @@
+element,id,name,place,population,settlement_id,built_exposure,mean_risk,exposure_units,status,time_normal_min,time_flood_min,delay_ratio
+node,256196848,Tambaram,city,174800,sett_0,0.903,0.5564,9030.0,Severely Delayed (≥2x Normal Time),0.2,1.6,7.03
+node,256197926,East Tambaram,suburb,,sett_1,0.729,0.5348,7290.0,Connected (Passable Route),0.8,0.8,1.0
+node,256197927,Chromepet,suburb,,sett_2,0.4057,0.3467,4057.0,Connected (Passable Route),0.6,0.6,1.0
+node,256197928,Pallavaram,town,214500,sett_3,0.1341,0.3761,1341.0,Connected (Passable Route),2.0,2.0,1.0
+node,256197930,Selaiyur,suburb,,sett_4,0.5643,0.4599,5643.0,Connected (Passable Route),3.0,3.0,1.0
+node,256197931,Chitlapakkam,suburb,,sett_5,0.3937,0.4955,3937.0,Connected (Passable Route),0.5,0.5,1.0
+node,256197932,Hasthinapuram,neighbourhood,,sett_6,0.2792,0.4832,2792.0,Connected (Passable Route),2.3,2.7,1.17
+node,256197946,Rajakilpakkam,suburb,,sett_7,0.2471,0.4375,2471.0,Connected (Passable Route),1.1,1.1,1.0
+node,256197949,Medavakkam,suburb,,sett_8,0.0891,0.541,891.0,Connected (Passable Route),3.0,4.7,1.54
+node,256197952,Perumbakkam,suburb,,sett_9,0.1361,0.5501,1361.0,Severely Delayed (≥2x Normal Time),5.5,17.7,3.23
+node,256197956,Sithalapakkam,suburb,,sett_10,0.1047,0.4269,1047.0,Connected (Passable Route),0.2,0.2,1.0
+node,256202916,Madambakkam,suburb,,sett_11,0.2946,0.5395,2945.9999999999995,Connected (Passable Route),1.5,1.5,1.0
+node,256202982,Thiruneermalai,suburb,,sett_12,0.8148,0.5329,8148.0,Connected (Passable Route),2.9,4.6,1.57
+node,256202986,Pammal,suburb,,sett_13,0.1893,0.3499,1893.0,Connected (Passable Route),0.6,0.6,1.0
+node,256203138,Irumbuliyur,suburb,,sett_14,0.9329,0.4858,9329.0,Connected (Passable Route),4.3,6.0,1.41
+node,256203139,Perungalathur,suburb,,sett_15,0.417,0.3304,4170.0,Connected (Passable Route),3.8,3.8,1.0
+node,278544356,Madipakkam,suburb,,sett_16,0.8121,0.6448,8121.0,Isolated (Hospital Cut Off),5.2,,
+node,280510383,கண்ணன் நகர்,neighbourhood,,sett_17,0.6363,0.5109,6363.0,Connected (Passable Route),1.1,1.2,1.07
+node,280510797,Balaji Nagar,neighbourhood,,sett_18,0.7256,0.5318,7256.0,Connected (Passable Route),0.8,0.9,1.1
+node,280518793,Puzhuthivakkam,suburb,,sett_19,0.98,0.6642,9800.0,Isolated (Hospital Cut Off),10.6,,
+node,280521191,Ram Nagar,neighbourhood,,sett_20,0.9495,0.6582,9495.0,Isolated (Hospital Cut Off),8.0,,
+node,280521508,Sadasiva Nagar,neighbourhood,,sett_21,0.98,0.6637,9800.0,Isolated (Hospital Cut Off),5.4,,
+node,294073714,Periya Colony,neighbourhood,,sett_22,0.3169,0.4481,3169.0,Isolated (Hospital Cut Off),,,
+node,301133602,Muthamizh Nagar,locality,,sett_23,0.2511,0.4597,2511.0,Connected (Passable Route),1.3,1.3,1.0
+node,301134399,Thirumudivakkam,suburb,,sett_24,0.6442,0.5409,6442.0,Severely Delayed (≥2x Normal Time),7.9,39.8,5.02
+node,301134429,Palanthandalam,suburb,,sett_25,0.31,0.5195,3100.0,Connected (Passable Route),6.2,6.2,1.0
+node,301134468,Erumaiyur,suburb,,sett_26,0.6456,0.5048,6455.999999999999,Connected (Passable Route),8.4,8.8,1.04
+node,301135484,Tirusulam,suburb,,sett_27,0.2234,0.4162,2234.0,Connected (Passable Route),4.3,4.3,1.0
+node,301136096,Bakhtavachalam Nagar,neighbourhood,,sett_28,0.3726,0.4902,3726.0,Severely Delayed (≥2x Normal Time),5.2,18.3,3.51
+node,301139010,Kamarajapuram,locality,,sett_29,0.4963,0.4301,4963.0,Connected (Passable Route),2.1,2.1,1.0
+node,301731218,Ullagaram,suburb,,sett_30,0.8723,0.5777,8723.0,Severely Delayed (≥2x Normal Time),1.9,10.3,5.43
+node,301734430,Moovarasampettai,suburb,,sett_31,0.4509,0.5624,4509.0,Severely Delayed (≥2x Normal Time),2.7,10.3,3.86
+node,306115244,Sunnambu Kulathur,neighbourhood,,sett_32,0.01,0.5972,100.0,Severely Delayed (≥2x Normal Time),3.1,20.4,6.57
+node,306115288,Narayanapuram,suburb,,sett_33,0.01,0.578,100.0,Isolated (Hospital Cut Off),5.7,,
+node,306115540,Jalladampet,suburb,,sett_34,0.01,0.7179,100.0,Isolated (Hospital Cut Off),3.1,,
+node,306116789,Vengaivasal Panchayat office,locality,,sett_35,0.1365,0.4333,1365.0,Connected (Passable Route),3.4,3.4,1.0
+node,306117469,Peerkankaranai,neighbourhood,,sett_36,0.7789,0.4804,7789.0,Connected (Passable Route),3.9,3.9,1.0
+node,306117685,Kolapakkam,suburb,,sett_37,0.4896,0.4042,4896.0,Connected (Passable Route),6.3,6.3,1.0
+node,306117874,Vandalur,suburb,,sett_38,0.1809,0.3957,1809.0,Connected (Passable Route),1.0,1.0,1.0
+node,306118067,Mudichur,suburb,,sett_39,0.1092,0.3029,1092.0,Connected (Passable Route),2.1,2.1,1.0
+node,306118071,Varadarajapuram,suburb,,sett_40,0.2092,0.3675,2092.0,Connected (Passable Route),3.5,3.5,1.0
+node,308900749,Agaramthen,suburb,,sett_41,0.01,0.565,100.0,Isolated (Hospital Cut Off),4.3,,
+node,308914614,Voltas Colony,neighbourhood,,sett_42,0.5873,0.5342,5873.0,Severely Delayed (≥2x Normal Time),1.8,6.8,3.74
+node,308915449,Union Carbide Colony,neighbourhood,,sett_43,0.6723,0.5672,6723.0,Severely Delayed (≥2x Normal Time),1.5,7.0,4.77
+node,310360632,Keelkattalai,suburb,,sett_44,0.3836,0.5442,3836.0,Severely Delayed (≥2x Normal Time),3.1,12.5,4.02
+node,310363802,Santoshapuram,suburb,,sett_45,0.1756,0.3906,1756.0,Connected (Passable Route),1.1,1.1,1.0
+node,310378460,Gowriwakkam,suburb,,sett_46,0.1428,0.4776,1428.0,Connected (Passable Route),2.2,2.2,1.0
+node,313280567,Sadanandapuram,suburb,,sett_47,0.8535,0.5122,8535.0,Connected (Passable Route),4.5,4.5,1.0
+node,313281569,Nedungundram,suburb,,sett_48,0.7438,0.4608,7438.0,Connected (Passable Route),7.8,7.8,1.0
+node,313282318,Unamancherri,locality,,sett_49,0.489,0.4039,4890.0,Connected (Passable Route),6.5,6.5,1.0
+node,331163199,Puducheri,village,,sett_50,0.1133,0.4953,1133.0,Connected (Passable Route),1.0,1.0,1.0
+node,331163303,Poonthandalam,village,,sett_51,0.1734,0.448,1734.0,Connected (Passable Route),2.8,2.8,1.0
+node,331881314,Kadaperi,locality,,sett_52,0.8544,0.5043,8544.0,Severely Delayed (≥2x Normal Time),3.1,16.4,5.24
+node,331910223,Kannadapalayam,suburb,,sett_53,0.9069,0.5066,9069.0,Severely Delayed (≥2x Normal Time),3.1,10.1,3.31
+node,331913707,Dharkas,village,,sett_54,0.3032,0.4953,3032.0000000000005,Connected (Passable Route),6.7,6.7,1.0
+node,331914721,Ettayapuram,village,,sett_55,0.2709,0.4841,2708.9999999999995,Connected (Passable Route),4.9,4.9,1.0
+node,331918549,Somangalam,village,,sett_56,0.146,0.3927,1460.0,Connected (Passable Route),0.8,0.8,1.0
+node,332004187,Vazhuthalambedu,suburb,,sett_57,0.9548,0.557,9548.0,Isolated (Hospital Cut Off),7.1,,
+node,332381569,Alapakkam,locality,,sett_58,0.7482,0.4226,7482.0,Connected (Passable Route),7.6,7.6,1.0
+node,332382631,Oriole,locality,,sett_59,0.98,0.5262,9800.0,Severely Delayed (≥2x Normal Time),6.1,18.9,3.11
+node,332382632,Vengambakkam,locality,,sett_60,0.98,0.5121,9800.0,Severely Delayed (≥2x Normal Time),7.7,17.6,2.29
+node,332382930,Rathinamangalam,suburb,,sett_61,0.98,0.5425,9800.0,Severely Delayed (≥2x Normal Time),6.3,34.4,5.49
+node,332382931,Kandigai,suburb,,sett_62,0.98,0.5588,9800.0,Severely Delayed (≥2x Normal Time),4.7,44.7,9.48
+node,335747491,Vinoba Nagar,locality,,sett_63,0.8277,0.5725,8277.0,Severely Delayed (≥2x Normal Time),2.2,17.9,8.16
+node,335748452,Kovilanchery,suburb,,sett_64,0.2544,0.5125,2544.0,Connected (Passable Route),3.9,3.9,1.0
+node,335748740,Ponmar,suburb,,sett_65,0.2606,0.498,2606.0,Connected (Passable Route),4.8,4.8,1.0
+node,335749107,Balaji Nagar,neighbourhood,,sett_66,0.3975,0.4525,3975.0,Connected (Passable Route),2.6,3.9,1.52
+node,335750561,Srinivasa Nagar,locality,,sett_67,0.28,0.4722,2800.0000000000005,Connected (Passable Route),0.6,0.6,1.0
+node,335750854,Noothanchery,suburb,,sett_68,0.2176,0.4709,2176.0,Connected (Passable Route),3.2,3.8,1.2
+node,335753159,Ottiambakkam,suburb,,sett_69,0.1302,0.434,1302.0,Connected (Passable Route),6.9,9.0,1.3
+node,335755162,Karanai,suburb,,sett_70,0.0591,0.4763,591.0,Connected (Passable Route),8.5,9.5,1.11
+node,335755198,Siruseri,suburb,,sett_71,0.1824,0.529,1824.0,Connected (Passable Route),14.3,14.3,1.0
+node,335755630,Veerabadhra Nagar,neighbourhood,,sett_72,0.0806,0.4946,806.0,Connected (Passable Route),2.9,2.9,1.0
+node,335757346,Pudupakkam,suburb,,sett_73,0.2012,0.4986,2012.0,Connected (Passable Route),18.6,18.6,1.0
+node,335758183,Thazhambur,suburb,,sett_74,0.0835,0.5014,835.0,Connected (Passable Route),11.0,11.0,1.0
+node,340082429,Venkataraman Nagar,neighbourhood,,sett_75,0.2015,0.4879,2015.0000000000002,Connected (Passable Route),1.1,1.1,1.0
+node,340356305,Manimangalam,village,,sett_76,0.1609,0.398,1608.9999999999998,Connected (Passable Route),5.7,5.7,1.0
+node,340357907,Karasangal,suburb,,sett_77,0.1109,0.4029,1109.0,Connected (Passable Route),8.3,8.3,1.0
+node,340358334,Mannivakkam,suburb,,sett_78,0.2109,0.3859,2109.0,Connected (Passable Route),3.2,3.2,1.0
+node,340358380,Ram Nagar,locality,,sett_79,0.1387,0.2989,1387.0,Connected (Passable Route),3.9,3.9,1.0
+node,340358501,Shanmuga Nagar,locality,,sett_80,0.0805,0.4063,805.0,Connected (Passable Route),4.1,4.1,1.0
+node,340359305,Samathuvapuram,locality,,sett_81,0.1952,0.4216,1952.0000000000002,Connected (Passable Route),7.6,7.6,1.0
+node,340359308,MGR Nagar,locality,,sett_82,0.1576,0.3835,1576.0,Connected (Passable Route),6.5,6.5,1.0
+node,401786624,AGS Officers Colony,neighbourhood,,sett_83,0.9758,0.6657,9758.0,Isolated (Hospital Cut Off),10.8,,
+node,402294609,Naduveerapattu,village,,sett_84,0.0859,0.5005,859.0,Connected (Passable Route),4.3,7.5,1.72
+node,402947915,Chettinad Enclave,locality,,sett_85,0.01,0.6748,100.0,Isolated (Hospital Cut Off),5.9,,
+node,402947917,Maxworth Nagar,neighbourhood,,sett_86,0.01,0.5956,100.0,Severely Delayed (≥2x Normal Time),4.6,30.7,6.74
+node,402979599,Nookampalayam,suburb,,sett_87,0.1648,0.4632,1648.0,Connected (Passable Route),4.7,4.7,1.0
+node,826126983,Karayambedu,village,,sett_88,0.3244,0.4425,3244.0,Connected (Passable Route),1.8,1.8,1.0
+node,964604382,Pallikaranai,suburb,,sett_89,0.01,0.6931,100.0,Isolated (Hospital Cut Off),5.5,,
+node,964604614,Nemilichery,neighbourhood,,sett_90,0.1459,0.3976,1459.0,Connected (Passable Route),4.0,4.0,1.0
+node,978454328,Kuberan Nagar,neighbourhood,,sett_91,0.8156,0.6415,8156.0,Isolated (Hospital Cut Off),10.0,,
+node,1180849770,Potheri,village,,sett_92,0.9383,0.4989,9383.0,Isolated (Hospital Cut Off),15.1,,
+node,1180849771,Kattangulathur,village,,sett_93,0.7213,0.3024,7213.000000000001,Severely Delayed (≥2x Normal Time),13.7,32.9,2.39
+node,1180849775,Urapakkam,suburb,,sett_94,0.1016,0.3342,1016.0,Connected (Passable Route),2.9,2.9,1.0
+node,1180849778,Guduvancheri,village,,sett_95,0.3122,0.4071,3122.0,Connected (Passable Route),0.1,0.1,1.0
+node,1317142941,Sheela Nagar,neighbourhood,,sett_96,0.9447,0.6602,9447.0,Isolated (Hospital Cut Off),5.2,,
+node,1317143256,Ramalinga Nagar,neighbourhood,,sett_97,0.98,0.6621,9800.0,Isolated (Hospital Cut Off),10.2,,
+node,1329325017,Jayachandran Nagar,locality,,sett_98,0.01,0.7176,100.0,Isolated (Hospital Cut Off),2.6,,
+node,1370961492,Nandhivaram,locality,,sett_99,0.4023,0.4073,4023.0,Connected (Passable Route),0.8,0.8,1.0
+node,1636177745,Madura Kali Nagar,neighbourhood,,sett_100,0.6267,0.6141,6267.0,Isolated (Hospital Cut Off),5.6,,
+node,1693509502,VGP Santhanammal Nagar,locality,,sett_101,0.1024,0.4271,1024.0,Connected (Passable Route),2.3,2.3,1.0
+node,1693541848,Heritage Jayendra Nagar,neighbourhood,,sett_102,0.2289,0.5148,2289.0,Connected (Passable Route),0.7,0.7,1.0
+node,1760697495,Karthikeyapuram,neighbourhood,,sett_103,0.7701,0.6323,7701.0,Isolated (Hospital Cut Off),4.0,,
+node,1760699733,Park Square colony,neighbourhood,,sett_104,0.7299,0.6295,7299.0,Isolated (Hospital Cut Off),2.7,,
+node,2210037955,Skylab Avenue,neighbourhood,,sett_105,0.1929,0.4555,1928.9999999999998,Connected (Passable Route),0.2,0.2,1.0
+node,2210077654,Skylab Avenue,locality,,sett_106,0.0919,0.4641,919.0,Connected (Passable Route),0.3,0.3,1.0
+node,2481011869,Rajaji Nagar,locality,,sett_107,0.3209,0.4644,3209.0,Connected (Passable Route),0.8,0.8,1.0
+node,3263004961,Vardhaman Nagar,neighbourhood,,sett_108,0.1344,0.3376,1344.0,Connected (Passable Route),0.8,0.8,1.0
+node,4089493731,Nanmangalam,neighbourhood,,sett_109,0.2074,0.4658,2074.0,Connected (Passable Route),0.8,0.8,1.0
+node,6129385262,TVS Green Hills,locality,,sett_110,0.8133,0.361,8133.0,Connected (Passable Route),7.4,7.4,1.0
+node,6129432715,SSM Nagar,suburb,,sett_111,0.924,0.4848,9240.0,Connected (Passable Route),5.7,5.8,1.02
+node,9787595230,Arul Nagar,neighbourhood,,sett_112,0.9063,0.4008,9063.0,Connected (Passable Route),6.2,7.9,1.28
+node,9902413099,Old Pallavaram,suburb,,sett_113,0.2279,0.3412,2279.0,Connected (Passable Route),4.2,4.2,1.0
+node,11013328843,Mambakkam,suburb,,sett_114,0.4136,0.5281,4136.0,Connected (Passable Route),1.8,1.8,1.0
+node,11013328844,Keezhakottaiyur,suburb,,sett_115,0.7398,0.5494,7398.0,Severely Delayed (≥2x Normal Time),2.6,18.1,7.01
+node,11013328845,Melakottaiyur,suburb,,sett_116,0.774,0.5726,7740.0,Severely Delayed (≥2x Normal Time),4.7,47.5,10.01
+node,11013412995,Aurum Villas by Pacifica,neighbourhood,,sett_117,0.1192,0.451,1192.0,Isolated (Hospital Cut Off),,,
+node,11014847700,Kumizhi,village,,sett_118,0.4066,0.5271,4066.0,Severely Delayed (≥2x Normal Time),14.0,28.5,2.04
+node,11014895006,Kannivakkam,village,,sett_119,0.1533,0.4342,1533.0,Connected (Passable Route),4.7,4.7,1.0
+node,11148027551,Serene Avenue,neighbourhood,,sett_120,0.1774,0.4647,1774.0,Connected (Passable Route),6.2,6.2,1.0
+node,12534285821,Kamatchi Nagar,neighbourhood,,sett_121,0.5084,0.6024,5084.0,Isolated (Hospital Cut Off),7.9,,
+node,12534286145,Kamakoti Nagar,neighbourhood,,sett_122,0.388,0.5843,3880.0,Isolated (Hospital Cut Off),7.1,,
+node,13277610183,New Colony,neighbourhood,,sett_123,0.4248,0.3737,4248.0,Connected (Passable Route),0.1,0.1,1.0
+node,14031488244,Kilambakkam,suburb,,sett_124,0.2186,0.3789,2186.0,Connected (Passable Route),5.4,5.4,1.0
+node,14038759248,Neelamangalam,suburb,,sett_125,0.2513,0.405,2513.0000000000005,Connected (Passable Route),3.6,3.6,1.0
+node,14038759249,Adhanur,suburb,,sett_126,0.1261,0.2957,1261.0,Connected (Passable Route),3.0,3.0,1.0
+node,14041638035,Kovilambakkam,suburb,,sett_127,0.2651,0.4613,2651.0,Connected (Passable Route),0.4,0.4,1.0
+node,14041638036,Echangadu,suburb,,sett_128,0.3858,0.5268,3857.9999999999995,Severely Delayed (≥2x Normal Time),3.2,15.6,4.93
+node,14045532122,Thiruvanchery,suburb,,sett_129,0.6234,0.5004,6233.999999999999,Connected (Passable Route),1.6,1.6,1.0
+node,14045532123,Mappedu,suburb,,sett_130,0.7605,0.5685,7604.999999999999,Severely Delayed (≥2x Normal Time),2.8,10.1,3.65
+node,14059858524,Sembakkam,suburb,,sett_131,0.2362,0.493,2362.0,Connected (Passable Route),3.5,3.5,1.0
+node,14059916525,Radha Nagar,neighbourhood,,sett_132,0.2772,0.3703,2772.0,Connected (Passable Route),0.3,0.3,1.0
+node,14221313466,Vellakkal,neighbourhood,,sett_133,0.2379,0.488,2379.0,Connected (Passable Route),2.0,3.2,1.56
+node,14224684425,IOB Colony,neighbourhood,,sett_134,0.4402,0.4878,4402.0,Connected (Passable Route),0.4,0.4,1.0
+node,14224684426,Padmavathy Nagar,neighbourhood,,sett_135,0.3324,0.5117,3323.9999999999995,Connected (Passable Route),0.6,0.6,1.0
+node,14224684427,Yeshwanth Nagar,neighbourhood,,sett_136,0.4437,0.4796,4437.0,Connected (Passable Route),3.2,3.8,1.19
+node,14224684428,Barathi Nagar,neighbourhood,,sett_137,0.5096,0.5141,5096.000000000001,Connected (Passable Route),0.9,0.9,1.0
+way,297314918,Rajeswari Nagar,neighbourhood,,sett_138,0.4059,0.5308,4059.0,Severely Delayed (≥2x Normal Time),1.0,2.0,2.02
+way,319828746,Vardhaman Nagar,suburb,,sett_139,0.1005,0.3318,1005.0000000000001,Connected (Passable Route),0.8,0.8,1.0
+way,422418168,Velachery,suburb,4646732,sett_140,0.8367,0.6458,8367.0,Isolated (Hospital Cut Off),8.1,,
