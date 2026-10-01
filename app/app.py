@@ -6,6 +6,14 @@ Built strictly using theme tokens from app/theme.py.
 
 import os
 import sys
+
+# Ensure project root and app dir are in sys.path BEFORE local imports
+root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+app_dir = os.path.abspath(os.path.dirname(__file__))
+for d in [root_dir, app_dir]:
+    if d not in sys.path:
+        sys.path.insert(0, d)
+
 import yaml
 import folium
 import numpy as np
@@ -19,13 +27,6 @@ from analysis.maps_service import (
     create_interactive_map,
     get_maps_api_key,
 )
-
-# Ensure project root and app dir are in sys.path
-root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-app_dir = os.path.abspath(os.path.dirname(__file__))
-for d in [root_dir, app_dir]:
-    if d not in sys.path:
-        sys.path.insert(0, d)
 
 try:
     from app.theme import (
