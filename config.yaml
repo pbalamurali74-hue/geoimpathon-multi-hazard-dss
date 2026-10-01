@@ -1,0 +1,95 @@
+# ==============================================================================
+# GEOIMPATHON 1.0 - Multi-Hazard DSS & Least-Risk Emergency Routing Configuration
+# Study Area: South Chennai to Chengalpattu Corridor
+# Event: Cyclone Michaung Floods (December 2023)
+# ==============================================================================
+
+# Earth Engine Project Configuration
+# Read dynamically; can be overridden via GEE_PROJECT environment variable.
+gee_project: "YOUR_PROJECT_ID"
+
+# Study Area Bounding Box (WGS84 [lon_min, lat_min, lon_max, lat_max])
+# Approx 20 km x 20 km: Tambaram, Pallikaranai, Velachery, Kattankulathur
+bbox:
+  lon_min: 80.03
+  lat_min: 12.80
+  lon_max: 80.22
+  lat_max: 12.98
+
+# Analysis Grid Resolution (meters)
+resolution_m: 30
+ranking_grid_size_m: 500
+
+# Event and Climatology Temporal Windows
+dates:
+  # Validation Event (Cyclone Michaung, Dec 2023)
+  event_name: "Cyclone Michaung Floods"
+  pre_event_start: "2023-11-01"
+  pre_event_end: "2023-12-01"
+  post_event_start: "2023-12-04"
+  post_event_end: "2023-12-15"
+  # Pre-event Baseline Land Cover & Climatology Windows
+  dw_composite_start: "2022-01-01"
+  dw_composite_end: "2023-10-31"
+  chirps_start_year: 2000
+  chirps_end_year: 2022
+
+# Multi-Hazard Component Weights (must sum to 1.0)
+hazard_weights:
+  flood: 0.70
+  slope_instability: 0.30
+
+# Multi-Hazard Risk Categorization Percentile Breaks (relative to study area)
+# [0, 50) -> Low, [50, 80) -> Moderate, [80, 95) -> High, [95, 100] -> Very High
+risk_percentiles:
+  low_max: 50.0
+  moderate_max: 80.0
+  high_max: 95.0
+
+# SAR Flood Detection Thresholds (Sentinel-1 VV)
+sar_parameters:
+  difference_threshold_db: -3.0
+  jrc_permanent_water_threshold: 80.0 # Percent occurrence to exclude permanent water
+  max_slope_deg: 5.0                   # Mask slopes > 5 deg (layover/false water)
+  min_patch_pixels: 8                  # Connected component minimum size filter
+
+# Road Network and Routing Parameters
+routing:
+  network_type: "drive"
+  default_alpha: 3.0                   # Safety penalty multiplier in cost = length * (1 + alpha * risk)
+  alpha_min: 0.0
+  alpha_max: 10.0
+  alpha_step: 0.5
+  block_threshold_percentile: 95.0     # Roads with risk >= 95th percentile are blocked in flood scenario
+  edge_sample_interval_m: 30.0         # Spatial interval to sample raster risk along edges
+  edge_risk_weights:
+    mean: 0.5
+    max: 0.5
+  risk_bumps:
+    tunnel_underpass: 0.15             # Additive risk bump for tunnel=* or layer < 0
+    bridge_over_water: 0.08            # Additive risk bump for low bridge over water
+  flood_speed_kmh: 5.0                 # Restricted speed for passable roads in High risk zone
+  default_speeds_kmh:
+    motorway: 80.0
+    trunk: 60.0
+    primary: 50.0
+    secondary: 40.0
+    tertiary: 30.0
+    residential: 20.0
+    unclassified: 20.0
+    service: 15.0
+
+# Access and Pre-positioning Parameters
+access:
+  golden_hour_minutes: 60.0
+  urgent_access_minutes: 30.0
+  severely_delayed_factor: 2.0         # Flood time > 2x normal time indicates severe delay
+  num_preposition_sites: 5             # Top K relief/ambulance pre-positioning sites
+  top_n_critical_roads: 10             # Headline single points of failure to display
+  criticality_candidates: 30           # Number of candidates evaluated for removal impact
+
+# Monte Carlo Robustness Analysis
+monte_carlo:
+  runs: 200
+  weight_noise_pct: 0.20               # +/- 20% multiplicative perturbation
+  confidence_level: 0.95

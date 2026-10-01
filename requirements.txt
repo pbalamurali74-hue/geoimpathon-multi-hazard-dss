@@ -1,0 +1,18 @@
+# Pin key library versions for GEOIMPATHON 1.0 DSS
+earthengine-api>=1.7.46
+geopandas>=1.0.0
+rasterio>=1.4.0
+osmnx>=2.0.0
+networkx>=3.2.0
+numpy>=2.0.0
+pandas>=2.2.0
+scikit-learn>=1.5.0
+scipy>=1.14.0
+shapely>=2.0.0
+streamlit>=1.38.0
+streamlit-folium>=0.20.0
+folium>=0.17.0
+matplotlib>=3.9.0
+pyyaml>=6.0.0
+pytest>=8.0.0
+requests>=2.31.0
