@@ -6,7 +6,7 @@
 
 # Earth Engine Project Configuration
 # Read dynamically; can be overridden via GEE_PROJECT environment variable.
-gee_project: "YOUR_PROJECT_ID"
+gee_project: "geoimpathon-dss"
 
 # Study Area Bounding Box (WGS84 [lon_min, lat_min, lon_max, lat_max])
 # Approx 20 km x 20 km: Tambaram, Pallikaranai, Velachery, Kattankulathur

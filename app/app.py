@@ -691,7 +691,8 @@ with tab_critical:
         m_crit = folium.Map(
             location=map_center_crit,
             zoom_start=12,
-            tiles="CartoDB positron",
+            tiles="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+            attr="&copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors &copy; <a href='https://carto.com/attributions'>CARTO</a>",
             control_scale=True,
         )
 
