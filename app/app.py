@@ -219,6 +219,19 @@ with st.sidebar:
         )
         if user_maps_key:
             st.success("Maps API Key Active")
+            if st.button("Save Key to .env", width="stretch"):
+                import re
+                env_file = ".env"
+                if os.path.exists(env_file):
+                    with open(env_file, "r") as ef:
+                        txt = ef.read()
+                    if "GOOGLE_MAPS_API_KEY=" in txt:
+                        txt = re.sub(r"GOOGLE_MAPS_API_KEY=.*", f"GOOGLE_MAPS_API_KEY={user_maps_key.strip()}", txt)
+                    else:
+                        txt += f"\nGOOGLE_MAPS_API_KEY={user_maps_key.strip()}\n"
+                    with open(env_file, "w") as ef:
+                        ef.write(txt)
+                    st.toast("Saved key to .env!")
         else:
             st.info("Direct Basemap Service Active (No API Key Required)")
 
