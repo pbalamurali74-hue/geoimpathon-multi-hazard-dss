@@ -377,7 +377,7 @@ with tab_risk:
                 ).add_to(m)
 
         folium.LayerControl(position="topright", collapsed=True).add_to(m)
-        st_folium(m, width="100%", height=560, returned_objects=[])
+        st_folium(m, use_container_width=True, height=560, returned_objects=[], key="risk_map_folium")
 
         st.caption(
             "Data sources: Copernicus DEM GLO-30 (ESA), Dynamic World V1 (Google/WRI), OpenStreetMap contributors, JRC Global Surface Water. "
@@ -597,7 +597,7 @@ with tab_route:
             ).add_to(m_route)
 
         folium.LayerControl(position="topright", collapsed=True).add_to(m_route)
-        st_folium(m_route, width="100%", height=560, returned_objects=[])
+        st_folium(m_route, use_container_width=True, height=560, returned_objects=[], key="route_map_folium")
 
         st.caption(
             "Map Legend: Solid Deep Blue = Safest Emergency Route (Least-Risk) | "
@@ -877,7 +877,7 @@ with tab_critical:
             ).add_to(m_crit)
 
         folium.LayerControl(position="topright", collapsed=True).add_to(m_crit)
-        st_folium(m_crit, width="100%", height=520)
+        st_folium(m_crit, use_container_width=True, height=520, returned_objects=[], key="crit_map_folium")
 
     with col_cpanel:
         st.markdown(
