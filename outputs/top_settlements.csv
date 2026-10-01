@@ -1,0 +1,142 @@
+element,id,name,place,population,settlement_id,mean_risk,built_exposure,risk_exposure_score,risk_tier,rank
+node,280518793,Puzhuthivakkam,suburb,,sett_19,0.6642,0.98,0.6509,Very High,1
+node,280521508,Sadasiva Nagar,neighbourhood,,sett_21,0.6637,0.98,0.6505,Very High,2
+node,401786624,AGS Officers Colony,neighbourhood,,sett_83,0.6657,0.9758,0.6496,Very High,3
+node,1317143256,Ramalinga Nagar,neighbourhood,,sett_97,0.6621,0.98,0.6489,Very High,4
+node,280521191,Ram Nagar,neighbourhood,,sett_20,0.6582,0.9495,0.625,Very High,5
+node,1317142941,Sheela Nagar,neighbourhood,,sett_96,0.6602,0.9447,0.6237,Very High,6
+node,332382931,Kandigai,suburb,,sett_62,0.5588,0.98,0.5476,High,7
+way,422418168,Velachery,suburb,4646732,sett_140,0.6458,0.8367,0.5403,Very High,8
+node,332004187,Vazhuthalambedu,suburb,,sett_57,0.557,0.9548,0.5318,High,9
+node,332382930,Rathinamangalam,suburb,,sett_61,0.5425,0.98,0.5316,High,10
+node,278544356,Madipakkam,suburb,,sett_16,0.6448,0.8121,0.5237,Very High,11
+node,978454328,Kuberan Nagar,neighbourhood,,sett_91,0.6415,0.8156,0.5232,Very High,12
+node,332382631,Oriole,locality,,sett_59,0.5262,0.98,0.5156,Moderate,13
+node,301731218,Ullagaram,suburb,,sett_30,0.5777,0.8723,0.5039,High,14
+node,256196848,Tambaram,city,174800,sett_0,0.5564,0.903,0.5024,High,15
+node,332382632,Vengambakkam,locality,,sett_60,0.5121,0.98,0.5018,Moderate,16
+node,1760697495,Karthikeyapuram,neighbourhood,,sett_103,0.6323,0.7701,0.4869,Very High,17
+node,335747491,Vinoba Nagar,locality,,sett_63,0.5725,0.8277,0.4738,High,18
+node,1180849770,Potheri,village,,sett_92,0.4989,0.9383,0.4681,Moderate,19
+node,1760699733,Park Square colony,neighbourhood,,sett_104,0.6295,0.7299,0.4595,Very High,20
+node,331910223,Kannadapalayam,suburb,,sett_53,0.5066,0.9069,0.4594,Moderate,21
+node,256203138,Irumbuliyur,suburb,,sett_14,0.4858,0.9329,0.4532,Moderate,22
+node,6129432715,SSM Nagar,suburb,,sett_111,0.4848,0.924,0.4479,Moderate,23
+node,11013328845,Melakottaiyur,suburb,,sett_116,0.5726,0.774,0.4432,High,24
+node,313280567,Sadanandapuram,suburb,,sett_47,0.5122,0.8535,0.4372,Moderate,25
+node,256202982,Thiruneermalai,suburb,,sett_12,0.5329,0.8148,0.4342,Moderate,26
+node,14045532123,Mappedu,suburb,,sett_130,0.5685,0.7605,0.4323,High,27
+node,331881314,Kadaperi,locality,,sett_52,0.5043,0.8544,0.4309,Moderate,28
+node,11013328844,Keezhakottaiyur,suburb,,sett_115,0.5494,0.7398,0.4065,High,29
+node,256197926,East Tambaram,suburb,,sett_1,0.5348,0.729,0.3899,Moderate,30
+node,280510797,Balaji Nagar,neighbourhood,,sett_18,0.5318,0.7256,0.3859,Moderate,31
+node,1636177745,Madura Kali Nagar,neighbourhood,,sett_100,0.6141,0.6267,0.3849,Very High,32
+node,308915449,Union Carbide Colony,neighbourhood,,sett_43,0.5672,0.6723,0.3813,High,33
+node,306117469,Peerkankaranai,neighbourhood,,sett_36,0.4804,0.7789,0.3742,Moderate,34
+node,9787595230,Arul Nagar,neighbourhood,,sett_112,0.4008,0.9063,0.3632,Low,35
+node,301134399,Thirumudivakkam,suburb,,sett_24,0.5409,0.6442,0.3484,High,36
+node,313281569,Nedungundram,suburb,,sett_48,0.4608,0.7438,0.3428,Low,37
+node,301134468,Erumaiyur,suburb,,sett_26,0.5048,0.6456,0.3259,Moderate,38
+node,280510383,கண்ணன் நகர்,neighbourhood,,sett_17,0.5109,0.6363,0.3251,Moderate,39
+node,332381569,Alapakkam,locality,,sett_58,0.4226,0.7482,0.3162,Low,40
+node,308914614,Voltas Colony,neighbourhood,,sett_42,0.5342,0.5873,0.3138,Moderate,41
+node,14045532122,Thiruvanchery,suburb,,sett_129,0.5004,0.6234,0.3119,Moderate,42
+node,12534285821,Kamatchi Nagar,neighbourhood,,sett_121,0.6024,0.5084,0.3062,Very High,43
+node,6129385262,TVS Green Hills,locality,,sett_110,0.361,0.8133,0.2936,Low,44
+node,14224684428,Barathi Nagar,neighbourhood,,sett_137,0.5141,0.5096,0.262,Moderate,45
+node,256197930,Selaiyur,suburb,,sett_4,0.4599,0.5643,0.2595,Low,46
+node,301734430,Moovarasampettai,suburb,,sett_31,0.5624,0.4509,0.2536,High,47
+node,12534286145,Kamakoti Nagar,neighbourhood,,sett_122,0.5843,0.388,0.2267,High,48
+node,11013328843,Mambakkam,suburb,,sett_114,0.5281,0.4136,0.2184,Moderate,49
+node,1180849771,Kattangulathur,village,,sett_93,0.3024,0.7213,0.2181,Low,50
+way,297314918,Rajeswari Nagar,neighbourhood,,sett_138,0.5308,0.4059,0.2154,Moderate,51
+node,14224684425,IOB Colony,neighbourhood,,sett_134,0.4878,0.4402,0.2147,Moderate,52
+node,11014847700,Kumizhi,village,,sett_118,0.5271,0.4066,0.2143,Moderate,53
+node,301139010,Kamarajapuram,locality,,sett_29,0.4301,0.4963,0.2134,Low,54
+node,14224684427,Yeshwanth Nagar,neighbourhood,,sett_136,0.4796,0.4437,0.2128,Moderate,55
+node,310360632,Keelkattalai,suburb,,sett_44,0.5442,0.3836,0.2087,High,56
+node,14041638036,Echangadu,suburb,,sett_128,0.5268,0.3858,0.2033,Moderate,57
+node,306117685,Kolapakkam,suburb,,sett_37,0.4042,0.4896,0.1979,Low,58
+node,313282318,Unamancherri,locality,,sett_49,0.4039,0.489,0.1975,Low,59
+node,256197931,Chitlapakkam,suburb,,sett_5,0.4955,0.3937,0.1951,Moderate,60
+node,301136096,Bakhtavachalam Nagar,neighbourhood,,sett_28,0.4902,0.3726,0.1827,Moderate,61
+node,335749107,Balaji Nagar,neighbourhood,,sett_66,0.4525,0.3975,0.1799,Low,62
+node,14224684426,Padmavathy Nagar,neighbourhood,,sett_135,0.5117,0.3324,0.1701,Moderate,63
+node,1370961492,Nandhivaram,locality,,sett_99,0.4073,0.4023,0.1638,Low,64
+node,301134429,Palanthandalam,suburb,,sett_25,0.5195,0.31,0.161,Moderate,65
+node,256202916,Madambakkam,suburb,,sett_11,0.5395,0.2946,0.1589,High,66
+node,13277610183,New Colony,neighbourhood,,sett_123,0.3737,0.4248,0.1587,Low,67
+node,331913707,Dharkas,village,,sett_54,0.4953,0.3032,0.1501,Moderate,68
+node,2481011869,Rajaji Nagar,locality,,sett_107,0.4644,0.3209,0.149,Low,69
+node,826126983,Karayambedu,village,,sett_88,0.4425,0.3244,0.1435,Low,70
+node,294073714,Periya Colony,neighbourhood,,sett_22,0.4481,0.3169,0.142,Low,71
+node,256197927,Chromepet,suburb,,sett_2,0.3467,0.4057,0.1406,Low,72
+node,256203139,Perungalathur,suburb,,sett_15,0.3304,0.417,0.1378,Low,73
+node,256197932,Hasthinapuram,neighbourhood,,sett_6,0.4832,0.2792,0.1349,Moderate,74
+node,335750561,Srinivasa Nagar,locality,,sett_67,0.4722,0.28,0.1322,Low,75
+node,331914721,Ettayapuram,village,,sett_55,0.4841,0.2709,0.1311,Moderate,76
+node,335748452,Kovilanchery,suburb,,sett_64,0.5125,0.2544,0.1304,Moderate,77
+node,335748740,Ponmar,suburb,,sett_65,0.498,0.2606,0.1298,Moderate,78
+node,1180849778,Guduvancheri,village,,sett_95,0.4071,0.3122,0.1271,Low,79
+node,14041638035,Kovilambakkam,suburb,,sett_127,0.4613,0.2651,0.1223,Low,80
+node,1693541848,Heritage Jayendra Nagar,neighbourhood,,sett_102,0.5148,0.2289,0.1178,Moderate,81
+node,14059858524,Sembakkam,suburb,,sett_131,0.493,0.2362,0.1164,Moderate,82
+node,14221313466,Vellakkal,neighbourhood,,sett_133,0.488,0.2379,0.1161,Moderate,83
+node,301133602,Muthamizh Nagar,locality,,sett_23,0.4597,0.2511,0.1154,Low,84
+node,256197946,Rajakilpakkam,suburb,,sett_7,0.4375,0.2471,0.1081,Low,85
+node,14059916525,Radha Nagar,neighbourhood,,sett_132,0.3703,0.2772,0.1026,Low,86
+node,335750854,Noothanchery,suburb,,sett_68,0.4709,0.2176,0.1025,Low,87
+node,14038759248,Neelamangalam,suburb,,sett_125,0.405,0.2513,0.1018,Low,88
+node,335757346,Pudupakkam,suburb,,sett_73,0.4986,0.2012,0.1003,Moderate,89
+node,340082429,Venkataraman Nagar,neighbourhood,,sett_75,0.4879,0.2015,0.0983,Moderate,90
+node,4089493731,Nanmangalam,neighbourhood,,sett_109,0.4658,0.2074,0.0966,Low,91
+node,335755198,Siruseri,suburb,,sett_71,0.529,0.1824,0.0965,Moderate,92
+node,301135484,Tirusulam,suburb,,sett_27,0.4162,0.2234,0.093,Low,93
+node,2210037955,Skylab Avenue,neighbourhood,,sett_105,0.4555,0.1929,0.0879,Low,94
+node,14031488244,Kilambakkam,suburb,,sett_124,0.3789,0.2186,0.0828,Low,95
+node,11148027551,Serene Avenue,neighbourhood,,sett_120,0.4647,0.1774,0.0824,Low,96
+node,340359305,Samathuvapuram,locality,,sett_81,0.4216,0.1952,0.0823,Low,97
+node,340358334,Mannivakkam,suburb,,sett_78,0.3859,0.2109,0.0814,Low,98
+node,9902413099,Old Pallavaram,suburb,,sett_113,0.3412,0.2279,0.0777,Low,99
+node,331163303,Poonthandalam,village,,sett_51,0.448,0.1734,0.0777,Low,100
+node,306118071,Varadarajapuram,suburb,,sett_40,0.3675,0.2092,0.0769,Low,101
+node,402979599,Nookampalayam,suburb,,sett_87,0.4632,0.1648,0.0763,Low,102
+node,256197952,Perumbakkam,suburb,,sett_9,0.5501,0.1361,0.0749,High,103
+node,306117874,Vandalur,suburb,,sett_38,0.3957,0.1809,0.0716,Low,104
+node,310363802,Santoshapuram,suburb,,sett_45,0.3906,0.1756,0.0686,Low,105
+node,310378460,Gowriwakkam,suburb,,sett_46,0.4776,0.1428,0.0682,Moderate,106
+node,11014895006,Kannivakkam,village,,sett_119,0.4342,0.1533,0.0665,Low,107
+node,256202986,Pammal,suburb,,sett_13,0.3499,0.1893,0.0662,Low,108
+node,340356305,Manimangalam,village,,sett_76,0.398,0.1609,0.064,Low,109
+node,340359308,MGR Nagar,locality,,sett_82,0.3835,0.1576,0.0605,Low,110
+node,306116789,Vengaivasal Panchayat office,locality,,sett_35,0.4333,0.1365,0.0591,Low,111
+node,964604614,Nemilichery,neighbourhood,,sett_90,0.3976,0.1459,0.058,Low,112
+node,331918549,Somangalam,village,,sett_56,0.3927,0.146,0.0573,Low,113
+node,335753159,Ottiambakkam,suburb,,sett_69,0.434,0.1302,0.0565,Low,114
+node,331163199,Puducheri,village,,sett_50,0.4953,0.1133,0.0561,Moderate,115
+node,11013412995,Aurum Villas by Pacifica,neighbourhood,,sett_117,0.451,0.1192,0.0538,Low,116
+node,256197928,Pallavaram,town,214500,sett_3,0.3761,0.1341,0.0504,Low,117
+node,256197949,Medavakkam,suburb,,sett_8,0.541,0.0891,0.0482,High,118
+node,3263004961,Vardhaman Nagar,neighbourhood,,sett_108,0.3376,0.1344,0.0454,Low,119
+node,340357907,Karasangal,suburb,,sett_77,0.4029,0.1109,0.0447,Low,120
+node,256197956,Sithalapakkam,suburb,,sett_10,0.4269,0.1047,0.0447,Low,121
+node,1693509502,VGP Santhanammal Nagar,locality,,sett_101,0.4271,0.1024,0.0437,Low,122
+node,402294609,Naduveerapattu,village,,sett_84,0.5005,0.0859,0.043,Moderate,123
+node,2210077654,Skylab Avenue,locality,,sett_106,0.4641,0.0919,0.0426,Low,124
+node,335758183,Thazhambur,suburb,,sett_74,0.5014,0.0835,0.0419,Moderate,125
+node,340358380,Ram Nagar,locality,,sett_79,0.2989,0.1387,0.0414,Low,126
+node,335755630,Veerabadhra Nagar,neighbourhood,,sett_72,0.4946,0.0806,0.0398,Moderate,127
+node,14038759249,Adhanur,suburb,,sett_126,0.2957,0.1261,0.0373,Low,128
+node,1180849775,Urapakkam,suburb,,sett_94,0.3342,0.1016,0.034,Low,129
+way,319828746,Vardhaman Nagar,suburb,,sett_139,0.3318,0.1005,0.0333,Low,130
+node,306118067,Mudichur,suburb,,sett_39,0.3029,0.1092,0.0331,Low,131
+node,340358501,Shanmuga Nagar,locality,,sett_80,0.4063,0.0805,0.0327,Low,132
+node,335755162,Karanai,suburb,,sett_70,0.4763,0.0591,0.0282,Moderate,133
+node,306115540,Jalladampet,suburb,,sett_34,0.7179,0.01,0.0072,Very High,134
+node,1329325017,Jayachandran Nagar,locality,,sett_98,0.7176,0.01,0.0072,Very High,135
+node,964604382,Pallikaranai,suburb,,sett_89,0.6931,0.01,0.0069,Very High,136
+node,402947915,Chettinad Enclave,locality,,sett_85,0.6748,0.01,0.0067,Very High,137
+node,306115244,Sunnambu Kulathur,neighbourhood,,sett_32,0.5972,0.01,0.006,High,138
+node,402947917,Maxworth Nagar,neighbourhood,,sett_86,0.5956,0.01,0.006,High,139
+node,306115288,Narayanapuram,suburb,,sett_33,0.578,0.01,0.0058,High,140
+node,308900749,Agaramthen,suburb,,sett_41,0.565,0.01,0.0056,High,141
