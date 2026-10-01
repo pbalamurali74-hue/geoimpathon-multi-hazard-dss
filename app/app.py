@@ -12,6 +12,7 @@ import numpy as np
 import pandas as pd
 import geopandas as gpd
 import streamlit as st
+import osmnx as ox
 from streamlit_folium import st_folium
 
 # Ensure project root and app dir are in sys.path
@@ -415,26 +416,187 @@ with tab_route:
         f"</p>",
         unsafe_allow_html=True,
     )
-    st.info("Step 2 Module: Emergency routing engine initialized. Use the sidebar safety slider to compare fastest vs. safest routes.")
 
-    c1, c2 = st.columns([7, 3])
-    with c1:
-        st.caption("Interactive emergency route comparison map will display the dual routes here in Step 2.")
-    with c2:
+    from routing.router import calculate_dual_routes
+
+    @st.cache_resource
+    def get_routing_graph():
+        graph_risk_p = "data/sample/drive_network_risk.graphml"
+        if not os.path.exists(graph_risk_p):
+            from routing.router import annotate_network_with_risk
+            return annotate_network_with_risk()
+        return ox.load_graphml(graph_risk_p)
+
+    G_routing = get_routing_graph()
+
+    # Determine origin coordinates
+    orig_sub = settlements_df[settlements_df["name"] == origin_settlement]
+    if not orig_sub.empty:
+        orig_pt = orig_sub.iloc[0].geometry
+        orig_coord = (float(orig_pt.x), float(orig_pt.y))
+    else:
+        orig_coord = (80.115, 12.924)  # Default Tambaram
+
+    # Determine destination dataset
+    if "Hospital" in destination_type and "hospitals" in vectors:
+        dest_gdf = vectors["hospitals"]
+        dest_category = "Hospital"
+    elif "shelters" in vectors:
+        dest_gdf = vectors["shelters"]
+        dest_category = "Shelter"
+    else:
+        dest_gdf = vectors.get("hospitals", gpd.GeoDataFrame())
+        dest_category = "Facility"
+
+    route_res = calculate_dual_routes(G_routing, orig_coord, dest_gdf, alpha=alpha_val)
+
+    fastest_m = route_res["fastest"]
+    safest_m = route_res["safest"]
+
+    col_rmap, col_rpanel = st.columns([7, 3], gap="medium")
+
+    with col_rmap:
+        # Compute map center between origin and destination
+        all_coords = fastest_m["coordinates"] + safest_m["coordinates"]
+        if all_coords:
+            r_lats = [pt[0] for pt in all_coords]
+            r_lons = [pt[1] for pt in all_coords]
+            map_center = [float(np.mean(r_lats)), float(np.mean(r_lons))]
+        else:
+            map_center = [orig_coord[1], orig_coord[0]]
+
+        m_route = folium.Map(
+            location=map_center,
+            zoom_start=13,
+            tiles="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+            attr="&copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors &copy; <a href='https://carto.com/attributions'>CARTO</a>",
+            control_scale=True,
+        )
+
+        # Optional background multi-hazard overlay
+        p_risk_png = "data/sample/multihazard_risk.png"
+        if os.path.exists(p_risk_png):
+            folium.raster_layers.ImageOverlay(
+                image=p_risk_png,
+                bounds=folium_bounds,
+                opacity=0.35,
+                name="Multi-Hazard Background",
+            ).add_to(m_route)
+
+        # 1. Render Fastest Route (Orange dashed with white casing)
+        if fastest_m["coordinates"]:
+            # White casing
+            folium.PolyLine(
+                locations=fastest_m["coordinates"],
+                color=COLOR_WHITE,
+                weight=7,
+                opacity=0.9,
+            ).add_to(m_route)
+            # Orange dashed line
+            folium.PolyLine(
+                locations=fastest_m["coordinates"],
+                color=COLOR_ORANGE,
+                weight=4,
+                opacity=0.95,
+                dash_array="6, 6",
+                tooltip=f"Fastest Route: {fastest_m['distance_km']} km, {fastest_m['time_min']} min",
+            ).add_to(m_route)
+
+        # 2. Render Safest Route (Deep Blue solid with white casing)
+        if safest_m["coordinates"]:
+            # White casing
+            folium.PolyLine(
+                locations=safest_m["coordinates"],
+                color=COLOR_WHITE,
+                weight=8,
+                opacity=0.9,
+            ).add_to(m_route)
+            # Solid deep blue line
+            folium.PolyLine(
+                locations=safest_m["coordinates"],
+                color=COLOR_DEEP_BLUE,
+                weight=5,
+                opacity=0.95,
+                tooltip=f"Safest Route (alpha={alpha_val}): {safest_m['distance_km']} km, {safest_m['time_min']} min",
+            ).add_to(m_route)
+
+        # 3. Origin Marker
+        folium.CircleMarker(
+            location=[orig_coord[1], orig_coord[0]],
+            radius=7,
+            color=COLOR_DEEP_BLUE,
+            fill=True,
+            fill_color=COLOR_WHITE,
+            weight=3,
+            tooltip=f"Origin: {origin_settlement}",
+        ).add_to(m_route)
+
+        # 4. Destination Marker
+        if safest_m["coordinates"]:
+            dest_lat, dest_lon = safest_m["coordinates"][-1]
+            folium.Marker(
+                location=[dest_lat, dest_lon],
+                icon=folium.Icon(color="blue", icon="plus", prefix="fa"),
+                tooltip=f"Destination: {route_res['destination_name']}",
+            ).add_to(m_route)
+
+        st_folium(m_route, width="100%", height=560, returned_objects=[])
+
+        st.caption(
+            "Map Legend: Solid Deep Blue = Safest Emergency Route (Least-Risk) | "
+            "Orange Dashed = Shortest Physical Route | Blue Circle = Origin Settlement | Blue Cross = Nearest Safe Facility."
+        )
+
+    with col_rpanel:
+        st.markdown(f"<h4 style='color: {COLOR_INK}; margin-top: 0;'>Route Comparison</h4>", unsafe_allow_html=True)
+
+        if route_res.get("fallback_used"):
+            st.markdown(
+                f"""
+                <div class="warning-banner" style="border-left-color: {COLOR_DARK_ORANGE};">
+                    <strong>Notice:</strong> No completely safe route exists in severed graph. Showing the lowest-risk path on the full road network instead.
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+
+        # Side-by-side comparison cards
         st.markdown(
             f"""
-            <div class="route-card-fastest" style="margin-bottom: 12px;">
-                <div style="font-size: 12px; font-weight: 600; color: {COLOR_ORANGE}; text-transform: uppercase;">Fastest Route (alpha = 0.0)</div>
-                <div style="font-size: 20px; font-weight: 700; color: {COLOR_INK};">18 min | 11.2 km</div>
-                <div style="font-size: 12px; color: {COLOR_DARK_ORANGE}; font-weight: 600; margin-top: 4px;">4.2 km inside High Risk zone</div>
+            <div class="route-card-fastest" style="margin-bottom: 14px;">
+                <div style="font-size: 12px; font-weight: 600; color: {COLOR_ORANGE}; text-transform: uppercase;">
+                    Fastest Route (&alpha; = 0.0)
+                </div>
+                <div style="font-size: 24px; font-weight: 700; color: {COLOR_INK}; margin: 4px 0;">
+                    {fastest_m['time_min']:.1f} min | {fastest_m['distance_km']:.1f} km
+                </div>
+                <div style="font-size: 13px; color: {COLOR_DARK_ORANGE if fastest_m['high_risk_km'] > 0 else COLOR_MUTED_TEXT}; font-weight: 600;">
+                    {fastest_m['high_risk_km']:.1f} km inside High Risk zone ({fastest_m['high_risk_pct']:.0f}%)
+                </div>
             </div>
-            <div class="route-card-safest">
-                <div style="font-size: 12px; font-weight: 600; color: {COLOR_DEEP_BLUE}; text-transform: uppercase;">Safest Route (alpha = {alpha_val:.1f})</div>
-                <div style="font-size: 20px; font-weight: 700; color: {COLOR_INK};">24 min | 14.1 km</div>
-                <div style="font-size: 12px; color: {COLOR_MID_BLUE}; font-weight: 600; margin-top: 4px;">0.0 km inside High Risk zone</div>
+
+            <div class="route-card-safest" style="margin-bottom: 14px;">
+                <div style="font-size: 12px; font-weight: 600; color: {COLOR_DEEP_BLUE}; text-transform: uppercase;">
+                    Safest Route (&alpha; = {alpha_val:.1f})
+                </div>
+                <div style="font-size: 24px; font-weight: 700; color: {COLOR_INK}; margin: 4px 0;">
+                    {safest_m['time_min']:.1f} min | {safest_m['distance_km']:.1f} km
+                </div>
+                <div style="font-size: 13px; color: {COLOR_MID_BLUE}; font-weight: 600;">
+                    {safest_m['high_risk_km']:.1f} km inside High Risk zone ({safest_m['high_risk_pct']:.0f}%)
+                </div>
             </div>
-            <div class="warning-banner" style="margin-top: 14px;">
-                <strong>Compromise Analysis:</strong> The safest route adds 6 minutes and 2.9 km of distance, but successfully avoids 4.2 km of hazardous flooded road segments.
+
+            <div class="warning-banner">
+                <strong>Compromise Assessment:</strong> {route_res['compromise_text']}
+            </div>
+
+            <div class="metric-card" style="margin-top: 14px;">
+                <div class="metric-label">Target Facility</div>
+                <div style="font-size: 14px; font-weight: 600; color: {COLOR_INK};">
+                    {route_res['destination_name']}
+                </div>
+                <div class="metric-subtext">Verified Safe / Non-Inundated Ground</div>
             </div>
             """,
             unsafe_allow_html=True,
